@@ -1,0 +1,223 @@
+:root{
+    --baseColor: #F4F4F2;
+    --nonSelectedColor: #E8E8E8;
+    --nonSubmittedColor: #BBBFCA;
+    --selectedColor: #94B49F;
+    --submitColor: #377D71;
+}
+
+body{
+    margin: 0%;
+    padding: 0%;
+    /*border: none;*/
+    color: black;
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.container{
+    border: none;
+    background-color: var(--baseColor);
+    border-radius: 5px;
+    box-shadow: 3px 3px 8px #888888;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 2px;
+    align-items: center;
+}
+
+.container > a, button{
+    background-color: var(--nonSelectedColor);
+    border-radius: 5px;
+    padding: 5px;
+    margin: 3px;
+    box-shadow: 3px 3px 8px #888888;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+}
+
+.container .submitBTN {
+    background-color: var(--nonSubmittedColor);
+    color: #888888;
+}
+
+
+/*ready buttons*/
+.container .eaterReady {
+    background-color: var(--selectedColor);
+}
+
+.container .riderReady{
+    background-color: var(--selectedColor);
+}
+
+.container .pagoReady{
+    background-color: var(--selectedColor);
+    border: none;
+}
+
+.container .ciudadReady{
+    background-color: var(--selectedColor);
+    border: none;
+}
+
+.container .submitReady {
+    background-color: var(--submitColor);
+    color: black;
+}
+
+
+
+/*M.Pago button dorpdown menu display*/
+.pagoBTN {
+    border: none;
+    position: relative;
+    display: inline-block;
+}
+
+.pagoDropDown {
+    display: none;
+    position: absolute;
+    background-color: var(--baseColor);
+    min-width: 120px;
+
+}
+
+.pagoDropDown input{
+    border-radius: 5px;
+    text-decoration: none;
+    display: block;
+    padding: 5px;
+    
+}
+
+.pagoDropDown input:hover{
+    background-color: var(--selectedColor);
+}
+
+.pagoBTN:hover .pagoDropDown {
+    display: block;
+}
+
+
+
+
+
+/*Ciudad button dorpdown menu display*/
+.ciudadBTN {
+  
+    border: none;
+    position: relative;
+    display: inline-block;
+    
+    
+}
+
+/*
+.ciudadDropDown {
+    display: none;
+    grid-template-columns: 25px 200px;
+    position: absolute;
+    background-color: var(--baseColor);
+    min-width: 250px;
+    
+   
+  
+}
+
+.ciudadBTN:hover .ciudadDropDown {
+    display: grid;
+    height: 400px;
+    overflow: auto;
+    border-radius: 10px;
+}
+
+.ciudadDropDown input{
+    display: grid;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+    text-align: center;
+    padding: 10px;
+    
+}
+
+.ciudadDropDown label{
+    padding: 10px;
+    margin-top: 10px;
+    text-align: center;
+    border-radius: 15px;
+    
+}
+
+.ciudadDropDown label:hover{
+    background-color: var(--selectedColor);
+}
+
+*/
+
+form {
+    display: none;
+    grid-template-columns: 25px 200px;
+    position: absolute;
+    background-color: var(--baseColor);
+    min-width: 250px;
+    
+   
+  
+}
+
+
+
+.ciudadBTN:hover form {
+    display: grid;
+    height: 400px;
+    overflow: auto;
+    border-radius: 10px;
+}
+
+form input{
+    display: grid;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+    text-align: center;
+    padding: 10px;
+    
+}
+
+form label{
+    padding: 10px;
+    margin-top: 10px;
+    text-align: center;
+    border-radius: 15px;
+    
+}
+
+form label:hover{
+    background-color: var(--selectedColor);
+}
+
+.pagoBTN:hover form {
+    display: grid;
+    height: 400px;
+    overflow: auto;
+    border-radius: 10px;
+}
+
+.pagoBTNSelected {
+    border: none;
+    position: relative;
+    display: inline-block;
+    background-color: var(--selectedColor);
+    
+}
+
+.pagoBTNSelected:hover form {
+    display: grid;
+    height: 400px;
+    overflow: auto;
+    border-radius: 10px;
+}

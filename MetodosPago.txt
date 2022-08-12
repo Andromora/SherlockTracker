@@ -1,0 +1,13 @@
+Other
+Cash
+Card
+Cash and Card
+MERCADOPAGO_CL
+Store Value
+PIX
+Paypal
+Apple pay
+Google pay
+Promo
+No orders
+N/A

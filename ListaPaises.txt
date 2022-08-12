@@ -1,0 +1,343 @@
+Acailandia, Brazil
+Acapulco, Mexico
+Aguascalientes, Mexico
+Ambato, Ecuador
+Anápolis, Brazil
+Angra dos Reis, Brazil
+Antofagasta, Chile
+Aracaju, Brazil
+Aracatuba, Brazil
+Ariquemes, Brazil
+Arapiraca, Brazil
+Araraquara, Brazil
+Arequipa, Peru
+Arica, Chile
+Armenia, Colombia
+Asuncion, Paraguay
+Azuero, Panama
+Bacabal, Brazil
+Bahia blanca, Argentina
+Barbacena, Brazil
+Bariloche, Argentina
+Barquisimeto, Venezuela
+Barranquilla, Colombia
+Barreiras, Brazil
+Bauru, Brazil
+Belem, Brazil
+Belo Horizonte, Brazil
+Blumenau, Brazil
+Boa Vista, Brazil
+Bogotá, Colombia
+Botucatu, Brazil
+Braganca Paulista, Brazil
+Brasilia, Brazil
+Bucaramanga, Colombia
+Buenaventura, Colombia
+Buenos Aires, Argentina
+Cabo Frio, Brazil
+Calama, Chile
+Cachoeiro de Itapemirim, Brazil
+Cali, Colombia
+Caldas Novas, Brazil
+Canelones, Uruguay
+Cambodia
+Campeche, Mexico
+Campina Grande, Brazil
+Campinas, Brazil
+Campo Grande, Brazil
+Campos dos Goytacazes, Brazil
+Cancun, Mexico
+Caracas, Venezuela
+Cartagena, Colombia
+Caruaru, Brazil
+Cascavel, Brazil
+Catanduva, Brazil
+Cuautla, Mexico
+Caxias do Sul, Brazil
+Celaya, Mexico
+Chapeco, Brazil
+Chetumal, Mexico
+Chiclayo, Peru
+Chihuahua, Mexico
+Chilpancingo, Mexico
+Ciudad Juarez, Mexico
+Ciudad Obregon, Mexico
+Ciudad Victoria, Mexico
+Ciudad del Carmen, Mexico
+Ciudad del Este, Paraguay
+Coatzacoalcos, Mexico
+Cochabamba, Bolivia
+Colima, Mexico
+Concepcion, Chile
+Conselheiro Lafaiete, Brazil
+Copiapo, Chile
+Cordoba, Argentina
+Córdoba, Mexico
+Coyhaique, Chile
+Criciuma, Brazil
+Cruzalia, Brazil
+Cúcuta, Colombia
+Cuenca, Ecuador
+Cuernavaca, Mexico
+Cuiaba, Brazil
+Culiacan, Mexico
+Curitiba, Brazil
+Corumba, Brazil
+Cusco, Peru
+David, Panama
+Divinopolis, Brazil
+Dois Corregos, Brazil
+Dourados, Brazil
+Durango, Mexico
+El Calafate, Argentina
+Feira de Santana, Brazil
+Florianopolis, Brazil
+Florânia, Brazil
+Fortaleza, Brazil
+Foz do Iguacu, Brazil
+Franca, Brazil
+Goiania, Brazil
+State of Goiás, Brazil
+Governador Valadares, Brazil
+Gomez Palacio, Mexico
+Guadalajara, Mexico
+Guanajuato, Mexico
+Guarapuava, Brazil
+Guasave, Mexico
+Guatemala City, Guatemala
+Guayaquil, Ecuador
+Guaymas, Mexico
+Garanhuns, Brazil
+Hermosillo, Mexico
+Higuey, Dominican Republic
+Honolulu, Brazil
+Ushuaia, Argentina
+Ibague, Colombia
+Imperatriz, Brazil
+Ibarra, Ecuador
+Ipatinga, Brazil
+Iquique, Chile
+Catalao, Brazil
+Iquitos, Peru
+Irapuato, Mexico
+Itabira, Brazil
+Itabuna e Ilheus, Brazil
+Itajai, Brazil
+Itaperuna, Brazil
+Itapipoca, Brazil
+Ixtapa-Zihuatanejo, Mexico
+Jequie, Brazil
+Joao Pessoa, Brazil
+Joinville, Brazil
+Juazeiro do Norte, Brazil
+Juiz de Fora, Brazil
+Kingston, Jamaica
+La Paz, Bolivia
+La Paz, Mexico
+La Romana, Dominican Republic
+La Serena, Chile
+Lages, Brazil
+Lavras, Brazil
+Leon, Mexico
+Lima, Peru
+Los Mochis, Mexico
+Londrina, Brazil
+Los Andes, Chile
+Los Cabos, Mexico
+Macae, Brazil
+Macapa, Brazil
+Maceió, Brazil
+Managua, Nicaragua
+Manzanillo, Mexico
+Manaus, Brazil
+Manizales, Colombia
+Mar del Plata, Argentina
+Linhares, Brazil
+Maraba, Brazil
+Marilia, Brazil
+Maringá, Brazil
+Manhuaçu, Brazil
+Matamoros, Mexico
+Mayaguez, United States
+Mazatlán, Mexico
+Medellín, Colombia
+Mendoza Province, Argentina
+Mérida, Mexico
+Mexicali, Mexico
+Mexico City, Mexico
+Mineiros do Tietê, Brazil
+Mogi Guaçu, Brazil
+Monclova, Mexico
+Mongaguá, Brazil
+Montería, Colombia
+Monterrey, Mexico
+Montes Claros, Brazil
+Montevideo, Uruguay
+Morelia, Mexico
+Mossoró, Brazil
+Muriaé, Brazil
+Natal, Brazil
+Navojoa, Mexico
+Neiva, Colombia
+Nogales, Mexico
+Nova Friburgo, Brazil
+Nuevo Laredo, Mexico
+Nuevo Vallarta, Mexico
+Oaxaca, Mexico
+Osorno, Chile
+Ourinhos, Brazil
+Ovalle, Chile
+Itabuna e Ilheus, Brazil
+Pachuca, Mexico
+Palmas, Brazil
+Parana, Argentina
+Panama, Panama
+Paranaguá, Brazil
+Parauapebas, Brazil
+Parnaíba, Brazil
+Parintins, Brazil
+Parral, Mexico
+Paulo Afonso, Brazil
+Passo Fundo, Brazil
+Pasto, Colombia
+Patos de Minas, Brazil
+Pedrinhas Paulista, Brazil
+Pelotas, Brazil
+Pereira, Colombia
+Petronila, Brazil
+Petrópolis, Brazil
+Piedras Negras, Mexico
+Piracicaba, Brazil
+Piura, Peru
+Poços de Caldas, Brazil
+Ponce, United States
+Ponta Grossa, Brazil
+Popayán, Colombia
+Porto Alegre, Brazil
+Porto Seguro, Brazil
+Porto Velho, Brazil
+Pouso Alegre, Brazil
+Poza Rica, Mexico
+Presidente Prudente, Brazil
+Puebla, Mexico
+Puerto Madryn, Argentina
+Puerto Montt, Chile
+Puerto Plata, Dominican Republic
+Puerto Vallarta, Mexico
+Punta Arenas, Chile
+Punta Cana, Dominican Republic
+Punta del Este, Uruguay
+Puerto Vallarta, Mexico
+Santiago de Querétaro, Mexico
+Quetzaltenango, Guatemala
+Quito, Ecuador
+Rancagua, Chile
+Recife, Brazil
+Reynosa, Mexico
+Ribeirao Preto, Brazil
+Rio Branco, Brazil
+Rio Grande, Brazil
+Rio Verde, Brazil
+Rio de Janeiro, Brazil
+Riviera Maya, Mexico
+Rondonopolis, Brazil
+Registro, Brazil
+Rosario, Argentina
+Salamanca, Mexico
+Salta, Argentina
+Saltillo, Mexico
+Salvador, Brazil
+Salto, Uruguay
+San Fernando, Trinidad and Tobago
+San José, Costa Rica
+San Juan, United States
+San Luis Potosí, Mexico
+San Luis Rio Colorado, Mexico
+San Miguel de Allende, Mexico
+San Pedro Sula, Honduras
+San Salvador, El Salvador
+San Pedro de Macoris, República Dominicana
+Santa Ana, El Salvador
+Santa Cruz de la Sierra, Bolivia
+Santa Cruz do Sul, Brazil
+Santa Maria, Brazil
+Santa Maria da Serra, Brazil
+Santa Marta, Colombia
+Coban, Guatelama
+Santarem, Brazil
+Santiago, Chile
+Santiago De Los Caballeros, Dominican Republic
+Santo Antonio de Jesus, Brazil
+Santo Domingo, Dominican Republic
+Santos, Brazil
+São Bento do Sul, Brazil
+Santa Cruz do Capibaribe, Brazil
+San Juan del Río, Mexico
+Zamora, Mexico
+São Carlos, Brazil
+São Félix do Xingu, Brazil
+São José do Rio Preto, Brazil
+São José dos Campos, Brazil
+São Luís, Brazil
+Sao Mateus, Brazil
+São Paulo, Brazil
+São João del Rei, Brazil
+Sete Lagoas, Brazil
+Sincelejo, Colombia
+Sinop, Brazil
+Sobral, Brazil
+Sorocaba, Brazil
+Talca, Chile
+Tampico, Mexico
+Tapachula, Mexico
+Tegucigalpa, Honduras
+Tlaxcala, Mexico
+Tehuacan, Mexico
+Temuco, Chile
+Teófilo Otoni, Brazil
+Tepic, Mexico
+Teresina, Brazil
+Tijuana, Mexico
+Toluca, Mexico
+Torreón, Mexico
+Três Rios, Brasil
+Tres Lagoas, Brazil
+Trujillo, Peru
+Tucuman, Argentina
+Tucurui, Brazil
+Tula de Allende, Mexico
+Tuxtla Gutiérrez, Mexico
+Uba, Brazil
+Uberaba, Brazil
+Uberlândia, Brazil
+Umuarama, Brazil
+Uruapan, Mexico
+Valdivia, Chile
+Valledupar, Colombia
+Valparaíso, Chile
+Varginha, Brazil
+Heroica Veracruz, Mexico
+Villahermosa, Mexico
+Villavicencio, Colombia
+Vitória da Conquista, Brazil
+Vitoria, Brazil
+Volta Redonda, Brazil
+Xalapa, Mexico
+Tangara da Serra, Brazil
+Zacatecas, Mexico
+Moroleón, Mexico
+USA
+Lazaro Cardenas, Mexico
+Loja, Ecuador
+San Salvador de Jujuy, Argentina
+Salinas, Ecuador
+Corrientes, Argentina
+San Miguel de Tucumán, Argentina
+Resistencia, Argentina
+Comodoro Rivadavia, Argentina
+Itacoatiara Brazil
+Manta, Ecuador
+Olavarría, Argentina
+Posadas, Argentina
+Santa Fe, Argentina
+OTHER (Europa y Asia)
