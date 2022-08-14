@@ -22,7 +22,7 @@ body{
     border-radius: 5px;
     box-shadow: 3px 3px 8px #888888;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(7, 0.5fr);
     padding: 2px;
     align-items: center;
 }
@@ -70,93 +70,15 @@ body{
 
 
 
-/*M.Pago button dorpdown menu display*/
-.pagoBTN {
-    border: none;
-    position: relative;
-    display: inline-block;
-}
-
-.pagoDropDown {
-    display: none;
-    position: absolute;
-    background-color: var(--baseColor);
-    min-width: 120px;
-
-}
-
-.pagoDropDown input{
-    border-radius: 5px;
-    text-decoration: none;
-    display: block;
-    padding: 5px;
-    
-}
-
-.pagoDropDown input:hover{
-    background-color: var(--selectedColor);
-}
-
-.pagoBTN:hover .pagoDropDown {
-    display: block;
-}
-
-
-
-
 
 /*Ciudad button dorpdown menu display*/
-.ciudadBTN {
-  
+.generalBTN {
     border: none;
-    position: relative;
     display: inline-block;
     
     
 }
 
-/*
-.ciudadDropDown {
-    display: none;
-    grid-template-columns: 25px 200px;
-    position: absolute;
-    background-color: var(--baseColor);
-    min-width: 250px;
-    
-   
-  
-}
-
-.ciudadBTN:hover .ciudadDropDown {
-    display: grid;
-    height: 400px;
-    overflow: auto;
-    border-radius: 10px;
-}
-
-.ciudadDropDown input{
-    display: grid;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-top: 10px;
-    text-align: center;
-    padding: 10px;
-    
-}
-
-.ciudadDropDown label{
-    padding: 10px;
-    margin-top: 10px;
-    text-align: center;
-    border-radius: 15px;
-    
-}
-
-.ciudadDropDown label:hover{
-    background-color: var(--selectedColor);
-}
-
-*/
 
 form {
     display: none;
@@ -169,9 +91,7 @@ form {
   
 }
 
-
-
-.ciudadBTN:hover form {
+.generalBTN:hover form {
     display: grid;
     height: 400px;
     overflow: auto;
@@ -220,4 +140,31 @@ form label:hover{
     height: 400px;
     overflow: auto;
     border-radius: 10px;
+}
+
+.BinDropDown {
+    max-height: 150px;
+}
+
+.NotasBTN {
+    border: 0px;
+}
+
+.TextArea {
+    font-size: 18px;
+    display: none;
+    position: absolute;
+}
+
+.NotasBTN:hover .TextArea{
+    display: flex;
+}
+
+.generalBTN div {
+    border-bottom: 2px solid #888888;
+    
+}
+
+.generalBTN .regla {
+    border-bottom: 0px solid #888888;
 }

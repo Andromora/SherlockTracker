@@ -4,6 +4,7 @@ let metodoPago;
 let ciudad;
 let ciudadRawData;
 let metodosPagoRawData;
+let productoRawData;
 
 let metodoPagoSeleccionado;
 //#endregion
@@ -17,8 +18,10 @@ let txt_City;
 //#region DOM Gattering
 /*const eaterButton = document.querySelector("#eaterBTN");
 const riderButton = document.querySelector("#riderBTN");*/
+const productoButton = document.querySelector('#productoBTN');
 const pagoButton = document.querySelector("#pagoBTN");
 const ciudadButton = document.querySelector("#ciudadBTN");
+const productoForm = document.querySelector('#productoForm');
 const ciudadForm = document.querySelector("#ciudadForm");
 const metodosPagoForm = document.querySelector("#metodoPagoForm");
 const submitButton = document.querySelector("#submitBTN");
@@ -81,28 +84,44 @@ async function fileReadPaymentMethods(){
 
 }
 
+async function fileReadProducts(){
+    const fileContent = await fetch('Producto.txt')
+        .then(response => response.text())
+        .then(text => productoRawData = text);
+    let productoArray = productoRawData.split('\n');
+    
+    productoArray.forEach(element => {
+        createInputElement(element, productoForm, 'rb_productos');
+    });
+    
+   
+}
+
 //#endregion
 
 function loadLists(){
     fileReadPaymentMethods();
     fileReadCountries();
+    fileReadProducts();
 
 }
 
-function createInputElement(countryName, tagElement, rbname){
+
+//Input element creation with RadioButtons
+function createInputElement(IDName, tagElement, rbname){
     let tempInput = document.createElement("input");
     tempInput.type = 'radio';
-    tempInput.id= countryName;
-    tempInput.value=countryName;
+    tempInput.id= IDName;
+    tempInput.value=IDName;
     tempInput.name= rbname;
     tempInput.addEventListener('change', ()=>
-    seleccionRB(tagElement, countryName)
+    seleccionRB(tagElement, IDName)
     );
 
     let labelTemp = document.createElement('label');
-    labelTemp.htmlFor = countryName;
+    labelTemp.htmlFor = IDName;
     
-    labelTemp.appendChild(document.createTextNode(countryName));
+    labelTemp.appendChild(document.createTextNode(IDName));
 
     tagElement.appendChild(tempInput);
     tagElement.appendChild(labelTemp);
@@ -121,12 +140,6 @@ function selectionMetodosPago(){
     }
 
 }
-
-let radios = document.querySelectorAll('input[type=radio][name="rb_mp"]');
-radios.forEach(radio => radio.addEventListener('change', ()=>
-console.log('got it')
-
-));
 
 
 function seleccionRB(tagID, rbPressed){

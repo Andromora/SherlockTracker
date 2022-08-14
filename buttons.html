@@ -17,21 +17,49 @@
         <a href="#" id="eaterBTN" class="eaterBTN">EATER</a>
         <a href="#" id="riderBTN" class="riderBTN">DRIVER</a>
         -->
-        <button id="pagoBTN" class="pagoBTN">M.PAGO
+        <button id="productoBTN" class="generalBTN">PRODUCTO
+            <form id="productoForm" class="ciudadDropDown"> 
+            </form>
+        </button>
+        <button id="pagoBTN" class="generalBTN">M.PAGO
             <form id="metodoPagoForm" class="ciudadDropDown"> 
                 <label for=""></label><input type="text" id="otherPayment">
             </form>
         </button>
-        <button id="ciudadBTN" class="ciudadBTN">CIUDAD
+        <button id="ciudadBTN" class="generalBTN">CIUDAD
             <form id="ciudadForm" class="ciudadDropDown"> 
             </form>
         </button>
-        <button id="ciudadBTN" class="ciudadBTN">BIN
-            <form id="ciudadForm" class="ciudadDropDown">
-                <input type="radio"><label for="">En lista</label>
-                <input type="radio"><label for="">Sospechoso</label>
-                <label for=""></label><input type="text" id="otherPayment">
+        <button id="ciudadBTN" class="generalBTN">BIN
+            <form id="BinForm" class="BinDropDown">
+                <input type="radio" id="enLista" name="binInfo"><label for="enLista">En lista</label>
+                <input type="radio" id="noListado" name="binInfo"><label for="noListado">Sospechoso</label>
+                <label for=""></label><input type="text" id="BinTextBox">
             </form>
+        </button>
+        <button id="otrosBTN" class="generalBTN">Otros
+            <form id="otrosForm" class="otrosDropDown">
+                <p></p>
+                <div class="ajuste">
+                    <h3>Ajuste</h3>
+                    <input type="text" id="ajusteMonto" placeholder="Fare">
+                    <input type="text" id="ajusteMoneda" placeholder="Moneda">
+                </div>
+                <p></p>
+                <div class="MiscPayment">
+                    <h3>Misc Payment</h3>
+                    <input type="text" id="miscMonto" placeholder="Monto">
+                    <input type="text" id="miscMoneda" placeholder="Moneda">
+                </div>
+                <p></p>
+                <div class="regla">
+                    <h3>Regla</h3>
+                    <input type="text" id="regla" placeholder="Regla">
+                </div>
+            </form>
+        </button>
+        <button id="NotasBTN" class="NotasBTN">Notas
+            <textarea name="" id="txtAreaNotes" cols="30" rows="10" class="TextArea"></textarea>
         </button>
         <a href="#" id="submitBTN" class="submitBTN">SUBMIT</a>
 
