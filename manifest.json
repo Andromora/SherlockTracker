@@ -1,0 +1,27 @@
+{
+    "author": "andromora@gmail.com",
+     
+    "content_scripts": [ {
+       "css": [ "barStyle.css" ],
+       "js": [ "app.js" ],
+       "matches": [ "https://sherlock.uberinternal.com/v2/queues/*" ]
+    } ],
+    "browser_actions":{
+        "default_icon": "./Icons/Icon64.png",
+        "default_popup": "popop.html?width=450"
+    },
+    "description": "Tool for case tracker",
+    "icons": {
+       "128": "./Icons/Icon128.png",
+       "64": "./Icons/Icon64.png",
+       "32": "./Icons/Icon32.png",
+       "16": "./Icons/Icon16.png"
+    },
+    "manifest_version": 3,
+    "name": "Sherlock Tarcker",
+    "offline_enabled": true,
+    "permissions": [ "clipboardRead", "storage"],
+    "short_name": "Sherlock",
+    "update_url": "https://clients2.google.com/service/update2/crx",
+    "version": "1.8.1"
+ }

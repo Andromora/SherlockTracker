@@ -1,4 +1,4 @@
-/*import * as name from 'FileSaver.js';*/
+/*import 'FileSaver.js';*/
 
 //#region Variables Globales
 let TAProductoRawData;
@@ -41,10 +41,10 @@ function loadLists(){
 BtnProducto.addEventListener('click', saveDocumnet);
 
 function saveDocumnet(){
-    /*var FileSaver = require('file-server');
-    let blob = new Blob (["TAProducto.value"], {type: "text/plain;charset=utf-8"});
-    FileSaver.saveAs(blob, "dynamic.txt");
-    console.log(TAProducto.value);*/
+    /*var FileSaver = require('file-server');*/
+    let blob = new Blob ([TAProducto.value], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, "dynamic.txt");
+    
 
     /*
         const a = document.createElement('a');
@@ -54,15 +54,15 @@ function saveDocumnet(){
         a.saveAs = 'filename.txt';
         a.click();
       
-        URL.revokeObjectURL(a.href);*/
+        URL.revokeObjectURL(a.href);
 
     let texto = TAProducto;
     texto.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent('hola Mundo'));
 
     texto.setAttribute('download', 'test.txt');
-
+*/
     console.log('llego');
-    console.log(texto);
+    
     
 }
 //#endregion
