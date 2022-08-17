@@ -1,6 +1,6 @@
 :root{
-    --baseColor: #F4F4F2;
-    --nonSelectedColor: #E8E8E8;
+    --baseColor: #EEEEEE;
+    --nonSelectedColor: #ebebeb;
     --nonSubmittedColor: #BBBFCA;
     --selectedColor: #94B49F;
     --submitColor: #377D71;
@@ -12,7 +12,7 @@ body{
     /*border: none;*/
     color: black;
     font-family: 'Nunito', sans-serif;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 600;
 }
 
@@ -20,10 +20,9 @@ body{
     border: none;
     background-color: var(--baseColor);
     border-radius: 5px;
-    box-shadow: 3px 3px 8px #888888;
+    /*box-shadow: 3px 3px 8px #888888;*/
     display: grid;
     grid-template-columns: repeat(7, 0.5fr);
-    padding: 2px;
     align-items: center;
 }
 
@@ -31,8 +30,8 @@ body{
     background-color: var(--nonSelectedColor);
     border-radius: 5px;
     padding: 5px;
-    margin: 3px;
-    box-shadow: 3px 3px 8px #888888;
+    margin-left: 5px;
+    /*box-shadow: 3px 3px 8px #888888;*/
     text-align: center;
     color: black;
     text-decoration: none;
@@ -41,6 +40,8 @@ body{
 .container .submitBTN {
     background-color: var(--nonSubmittedColor);
     color: #888888;
+    border: none;
+    cursor: not-allowed;
 }
 
 
@@ -66,6 +67,7 @@ body{
 .container .submitReady {
     background-color: var(--submitColor);
     color: black;
+    cursor: none;
 }
 
 
@@ -75,8 +77,6 @@ body{
 .generalBTN {
     border: none;
     display: inline-block;
-    
-    
 }
 
 
@@ -86,9 +86,10 @@ form {
     position: absolute;
     background-color: var(--baseColor);
     min-width: 250px;
-    
-   
-  
+}
+
+.generalBTN:hover  {
+    background-color: var(--selectedColor);
 }
 
 .generalBTN:hover form {
@@ -154,6 +155,10 @@ form label:hover{
     font-size: 18px;
     display: none;
     position: absolute;
+}
+
+.NotasBTN:hover {
+    background-color: var(--selectedColor);
 }
 
 .NotasBTN:hover .TextArea{

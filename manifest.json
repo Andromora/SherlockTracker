@@ -6,9 +6,8 @@
        "js": [ "app.js" ],
        "matches": [ "https://sherlock.uberinternal.com/v2/queues/*" ]
     } ],
-    "browser_actions":{
-        "default_icon": "./Icons/Icon64.png",
-        "default_popup": "popop.html?width=450"
+    "action":{
+        "default_popup": "popup.html"
     },
     "description": "Tool for case tracker",
     "icons": {
