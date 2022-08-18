@@ -110,7 +110,7 @@ function loadElements(){
     formBin.appendChild(binInput2);
     let binLabel2 = document.createElement('label');
         binLabel2.htmlFor = 'noListado';
-        binLabel2.innerText = "En noListado";
+        binLabel2.innerText = "No Listado";
     formBin.appendChild(binLabel2);
     formBin.appendChild(document.createElement('p'));
         let BinInput = document.createElement('input');
