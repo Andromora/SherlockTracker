@@ -1,10 +1,16 @@
 //#region Golbal Variables
 let LOB;
-let metodoPago;
-let ciudad;
+let metodoPagoSeleccion;
+let ciudadSeleccion;
+let productoSeleccion;
+let submitActivation = 0;
 let ciudadRawData;
 let metodosPagoRawData;
 let productoRawData;
+
+let dbProductos = 'https://sherlock-project-5a8eb-default-rtdb.firebaseio.com/producto.json';
+let dbPaises = 'https://sherlock-project-5a8eb-default-rtdb.firebaseio.com/ciudad.json';
+let dbMetodosPago = 'https://sherlock-project-5a8eb-default-rtdb.firebaseio.com/metodosPago.json';
 
 let metodoPagoSeleccionado;
 //#endregion
@@ -32,11 +38,11 @@ function checkSherlockStatement(){
     );
 };
 
-function loadElements(){
+async function loadElements(){
 
     let originDIV = document.getElementsByClassName('_css-dnPEvs')[0];
     let firstChildOrigin = document.getElementsByClassName('_css-aNItu')[1];
-        
+    let sherlockTextArea = document.getElementsByClassName('_css-glQrDZ')[0];
     /*originDIV.style.background = "black";*/
 
     //Creacion de Contenido HTML
@@ -79,17 +85,46 @@ function loadElements(){
     let botonSubmit = document.createElement('button');
     botonSubmit.className="submitBTN";
     botonSubmit.id="submitBTN";
+    botonSubmit.addEventListener('click', printInfoSherlockArea);
     botonSubmit.appendChild(document.createTextNode("Submit"));
+
     //#endregion
 
-    //Creacion Forms
-        //MetodosPago
-    let formMPago = document.createElement('form');
-        formMPago.className="ciudadDropDown";
-        formMPago.id="metodoPagoForm";
-        fileReadPaymentMethods();
+    //#region Llenado de Forms
+    let formProducto = document.createElement('form');
+    formProducto.className="ciudadDropDown";
+    formProducto.id="productoForm";
+        
+    await retrieveData(dbProductos);
 
-        //#region Bin
+    metodosPagoRawData.forEach(element => {
+        createInputElement(element, formProducto, 'uberProducts');
+    });
+    
+    let formMPago = document.createElement('form');
+    formMPago.className="ciudadDropDown";
+    formMPago.id="metodoPagoForm";
+    
+
+    await retrieveData(dbMetodosPago);
+
+    metodosPagoRawData.forEach(element => {
+        createInputElement(element, formMPago, 'metodoDePago');
+    });
+
+    let formPaises = document.createElement('form');
+    formPaises.className="ciudadDropDown";
+    formPaises.id="paisesForm";
+       
+    await retrieveData(dbPaises);
+
+    metodosPagoRawData.forEach(element => {
+        createInputElement(element, formPaises, 'listaPaises');
+    });
+
+    //#endregion
+    
+    //#region Bin
     let formBin = document.createElement('form');
         formBin.className = "BinDropDown";
         formBin.id = 'BinForm';
@@ -119,7 +154,7 @@ function loadElements(){
     formBin.appendChild(BinInput);
         //#endregion
 
-        //#region otros
+    //#region otros
     let formMOtros = document.createElement('form');
     formMOtros.className = "otrosDropDown";
     formMOtros.id = "otrosForm";
@@ -173,7 +208,7 @@ function loadElements(){
     formMOtros.appendChild(reglaDiv);
         //#endregion
 
-        //#region notas
+    //#region notas
     let notasTxtArea = document.createElement('textarea');
         notasTxtArea.className = "TextArea";
         notasTxtArea.id = "textAreaNotes";
@@ -184,7 +219,9 @@ function loadElements(){
 
     //Appends to General Buttons
     botonBin.appendChild(formBin);
+    botonProducto.appendChild(formProducto);
     botonMPago.appendChild(formMPago);
+    botonCiudad.appendChild(formPaises);
     botonOtros.appendChild(formMOtros);
     botonNotas.appendChild(notasTxtArea);
     
@@ -203,24 +240,8 @@ function loadElements(){
     
     
     
-    async function fileReadPaymentMethods(){
-        const fileContent2 = await fetch('MetodosPago.txt')
-            .then(response => response.text())
-            .then(text => metodosPagoRawData = text);
-        let metodosPagoArray = metodosPagoRawData.split('\n');
-    
-        metodosPagoArray.forEach(element => {
-            createInputElement(element, formMPago, 'rb_mp');
-        });
-    
-        let inputText = document.createElement('input');
-        inputText.type = 'text';
-        inputText.id = 'txt_PaymentMethodOther';
-        
-        formMPago.appendChild(inputText);
-    
-    }
-
+    //ID Name = name of the Button, this would refer as the shown in the Label TAG
+    //tagElement = Is where the Input element will append as Child
     function createInputElement(IDName, tagElement, rbname){
         let tempInput = document.createElement("input");
         tempInput.type = 'radio';
@@ -240,7 +261,147 @@ function loadElements(){
         tagElement.appendChild(labelTemp);
     }
     
-    /*
+    function seleccionRB(tagID, rbPressed){
+        if(tagID === formProducto){
+            tagID.parentNode.className='pagoBTNSelected';
+            tagID.parentNode.childNodes[0].nodeValue=rbPressed;
+            console.log(rbPressed);
+            productoSeleccion = rbPressed;
+            submitActivation ++;
+            activationSubmitBTN();
+        }else if(tagID === formMPago){
+            tagID.parentNode.className='pagoBTNSelected';
+            tagID.parentNode.childNodes[0].nodeValue=rbPressed;
+            console.log(rbPressed);
+            metodoPagoSeleccion = rbPressed;
+            submitActivation ++;
+            activationSubmitBTN();
+        }else if(tagID === formPaises){
+            tagID.parentNode.className='pagoBTNSelected';
+            tagID.parentNode.childNodes[0].nodeValue=rbPressed;
+            console.log(rbPressed);
+            ciudadSeleccion = rbPressed;
+            submitActivation ++;
+            activationSubmitBTN();
+        }
+        
+    }
+    
+    function activationSubmitBTN(){
+        if(submitActivation === 3){
+            botonSubmit.className = "submitReady";
+        }
+    }
+    
+    function printInfoSherlockArea(){
+        /*alert(productoSeleccion + ' ' + metodoPagoSeleccion + ' ' + ciudadSeleccion);*/
+        sherlockTextArea.value = 'CRT | Internal Note | {' + productoSeleccion + ':' + metodoPagoSeleccion + ':' + ciudadSeleccion + ':' + notasTxtArea.value + '}';
+        sherlockTextArea.innerText = productoSeleccion + ' ' + metodoPagoSeleccion + ' ' + ciudadSeleccion;
+    }
+}
+
+
+
+async function retrieveData(dbLink){
+    console.log("We are working on your task")
+
+    
+    try {
+        const rawDataBase = await fetch(dbLink);
+        
+        if(rawDataBase.status === 200){
+            console.log("Status 200")
+            const datos = await rawDataBase.json();
+            metodosPagoRawData = datos;
+            ciudadRawData = datos;
+            productoRawData = datos;
+        }else if(rawDataBase.status === 401){
+            console.log("The key is not correct");
+        }else if(rawDataBase.status === 404){
+            console.log("The Data Table code is not correct");
+        }else {
+            console.log("There was an Unknown Error");
+        }
+        
+    } catch (error) {
+        console.log("We were not able to catch your Data Base"); 
+    }
+
+        
+}
+
+
+
+
+function selectionMetodosPago(){
+    const rbs = document.querySelectorAll('input[name="rb_mp"');
+    for(const rb of rbs ){
+        rb.onclick = (e) => {
+            console.log(e);
+        }
+        /*if(rb.checked){
+            console.log(rb);
+            break;
+        }*/
+    }
+
+}
+
+
+
+
+
+/*                 -------- DEPRECATED -----------
+//#region FileRead/Write
+async function fileReadCountries(){
+    const fileContent = await fetch('ListaPaises.txt')
+        .then(response => response.text())
+        .then(text => ciudadRawData = text);
+    let ciudadArray = ciudadRawData.split('\n');
+    
+    ciudadArray.forEach(element => {
+        createInputElement(element, ciudadForm, 'rb_paises');
+    });
+    
+
+}
+
+async function fileReadProducts(){
+    const fileContent = await fetch('Producto.txt')
+        .then(response => response.text())
+        .then(text => productoRawData = text);
+    let productoArray = productoRawData.split('\n');
+    
+    productoArray.forEach(element => {
+        createInputElement(element, productoForm, 'rb_productos');
+    });
+    
+
+}
+
+
+async function fileReadPaymentMethods(){
+    const fileContent2 = await fetch('MetodosPago.txt')
+        .then(response => response.text())
+        .then(text => metodosPagoRawData = text);
+    let metodosPagoArray = metodosPagoRawData.split('\n');
+
+    metodosPagoArray.forEach(element => {
+        createInputElement(element, formMPago, 'rb_mp');
+    });
+
+    let inputText = document.createElement('input');
+    inputText.type = 'text';
+    inputText.id = 'txt_PaymentMethodOther';
+    
+    formMPago.appendChild(inputText);
+
+}
+
+//#endregion*/
+
+
+/*
     fileReadPaymentMethods();
     fileReadCountries();
     fileReadProducts();
@@ -301,86 +462,3 @@ function loadElements(){
     //#endregion
 
     //document.addEventListener("DOMContentLoaded", loadLists);
-    
-}
-
-
-//#region FileRead/Write
-async function fileReadCountries(){
-    const fileContent = await fetch('ListaPaises.txt')
-        .then(response => response.text())
-        .then(text => ciudadRawData = text);
-    let ciudadArray = ciudadRawData.split('\n');
-    
-    ciudadArray.forEach(element => {
-        createInputElement(element, ciudadForm, 'rb_paises');
-    });
-    
-
-}
-
-async function fileReadProducts(){
-    const fileContent = await fetch('Producto.txt')
-        .then(response => response.text())
-        .then(text => productoRawData = text);
-    let productoArray = productoRawData.split('\n');
-    
-    productoArray.forEach(element => {
-        createInputElement(element, productoForm, 'rb_productos');
-    });
-    
-
-}
-
-//#endregion
-
-//Input element creation with RadioButtons
-function createInputElement(IDName, tagElement, rbname){
-    let tempInput = document.createElement("input");
-    tempInput.type = 'radio';
-    tempInput.id= IDName;
-    tempInput.value=IDName;
-    tempInput.name= rbname;
-    tempInput.addEventListener('change', ()=>
-    seleccionRB(tagElement, IDName)
-    );
-
-    let labelTemp = document.createElement('label');
-    labelTemp.htmlFor = IDName;
-    
-    labelTemp.appendChild(document.createTextNode(IDName));
-
-    tagElement.appendChild(tempInput);
-    tagElement.appendChild(labelTemp);
-}
-
-function selectionMetodosPago(){
-    const rbs = document.querySelectorAll('input[name="rb_mp"');
-    for(const rb of rbs ){
-        rb.onclick = (e) => {
-            console.log(e);
-        }
-        /*if(rb.checked){
-            console.log(rb);
-            break;
-        }*/
-    }
-
-}
-
-function seleccionRB(tagID, rbPressed){
-    if(tagID === metodosPagoForm){
-        tagID.parentNode.className='pagoBTNSelected';
-        tagID.parentNode.childNodes[0].nodeValue=rbPressed;
-        txt_PaymentMethod = rbPressed;
-        console.log(rbPressed);
-    }else if(tagID === ciudadForm){
-        tagID.parentNode.className='pagoBTNSelected';
-        tagID.parentNode.childNodes[0].nodeValue=rbPressed;
-        txt_City = rbPressed;
-        console.log(rbPressed);
-
-    }
-    
-}
-

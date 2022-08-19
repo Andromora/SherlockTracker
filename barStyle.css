@@ -66,8 +66,8 @@ body{
 
 .container .submitReady {
     background-color: var(--submitColor);
-    color: black;
-    cursor: none;
+    color: rgb(253, 253, 253);
+    cursor: pointer;
 }
 
 
