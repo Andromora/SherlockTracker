@@ -3,6 +3,12 @@ let LOB;
 let metodoPagoSeleccion;
 let ciudadSeleccion;
 let productoSeleccion;
+let binSeleccion = 'N/A';
+let ajusteFareSeleccion = 'N/A';
+let ajusteMonedaSeleccion = 'N/A';
+let miscMontoSeleccion = 'N/A';
+let miscMonedaSeleccion = 'N/A';
+let reglaSeleccion = 'N/A';
 let submitActivation = 0;
 let ciudadRawData;
 let metodosPagoRawData;
@@ -11,6 +17,7 @@ let productoRawData;
 let dbProductos = 'https://sherlock-project-5a8eb-default-rtdb.firebaseio.com/producto.json';
 let dbPaises = 'https://sherlock-project-5a8eb-default-rtdb.firebaseio.com/ciudad.json';
 let dbMetodosPago = 'https://sherlock-project-5a8eb-default-rtdb.firebaseio.com/metodosPago.json';
+let dbCurrency = 'https://sherlock-project-5a8eb-default-rtdb.firebaseio.com/currency';
 
 let metodoPagoSeleccionado;
 //#endregion
@@ -42,7 +49,7 @@ async function loadElements(){
 
     let originDIV = document.getElementsByClassName('_css-dnPEvs')[0];
     let firstChildOrigin = document.getElementsByClassName('_css-aNItu')[1];
-    let sherlockTextArea = document.getElementsByClassName('_css-glQrDZ')[0];
+    let sherlockTextArea = document.getElementsByClassName('_css-glQrDZ')[0]; //_css-glQrDZ
     /*originDIV.style.background = "black";*/
 
     //Creacion de Contenido HTML
@@ -294,9 +301,20 @@ async function loadElements(){
     }
     
     function printInfoSherlockArea(){
+        submitActivation = 0;
         /*alert(productoSeleccion + ' ' + metodoPagoSeleccion + ' ' + ciudadSeleccion);*/
-        sherlockTextArea.value = 'CRT | Internal Note | {' + productoSeleccion + ':' + metodoPagoSeleccion + ':' + ciudadSeleccion + ':' + notasTxtArea.value + '}';
-        sherlockTextArea.innerText = productoSeleccion + ' ' + metodoPagoSeleccion + ' ' + ciudadSeleccion;
+        sherlockTextArea.innerHTML = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteMonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + miscMonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://docs.google.com/document/d/1w-tpeoQ2RElxIRLJBVrvAl9v8jR0ka4OFtrlAtFAYpU/edit' + '}';
+
+        //sherlockTextArea.value
+
+        binSeleccion = 'N/A';
+        ajusteFareSeleccion = 'N/A';
+        ajusteMonedaSeleccion = 'N/A';
+        miscMontoSeleccion = 'N/A';
+        miscMonedaSeleccion = 'N/A';
+        reglaSeleccion = 'N/A';
+        submitActivation = 0;
+        
     }
 }
 
