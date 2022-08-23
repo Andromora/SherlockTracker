@@ -13,6 +13,7 @@ let submitActivation = 0;
 let ciudadRawData;
 let metodosPagoRawData;
 let productoRawData;
+let monedasRawData;
 
 let dbProductos = 'https://sherlock-project-5a8eb-default-rtdb.firebaseio.com/producto.json';
 let dbPaises = 'https://sherlock-project-5a8eb-default-rtdb.firebaseio.com/ciudad.json';
@@ -36,20 +37,39 @@ function checkSherlockStatement(){
                 }else{
                     console.log('pagina cargo');
                     loadElements();
+                    //confirmCheckBox();
                 }
             }else {
                 console.log('pagina cargo completamente');
                 loadElements();
+                //confirmCheckBox();
             }
         },2000
     );
 };
 
+function confirmCheckBox(){
+    let countcbSelection = document.getElementsByClassName('_css-fJmKOk').length;
+    let cbSelection = document.getElementsByClassName('_css-fJmKOk');
+    let bandera = 1;
+    console.log(countcbSelection);
+    console.log(cbSelection[1]);
+    do{
+        cbSelection[bandera].addEventListener('change', ()=>{
+            //alert('Selecciono la opcion');
+            setTimeout(loadElements, 3000);
+        });
+        bandera ++;
+    }while(bandera <= countcbSelection);
+}
+
+
 async function loadElements(){
 
     let originDIV = document.getElementsByClassName('_css-dnPEvs')[0];
     let firstChildOrigin = document.getElementsByClassName('_css-aNItu')[1];
-    let sherlockTextArea = document.getElementsByClassName('_css-glQrDZ')[0]; //_css-glQrDZ
+   // let sherlockTextArea = document.getElementsByClassName('_css-fqyxNi')[3]; //_css-glQrDZ _css-glQrDZ
+
     /*originDIV.style.background = "black";*/
 
     //Creacion de Contenido HTML
@@ -217,8 +237,9 @@ async function loadElements(){
 
     //#region notas
     let notasTxtArea = document.createElement('textarea');
-        notasTxtArea.className = "TextArea";
-        notasTxtArea.id = "textAreaNotes";
+        notasTxtArea.className = "TextAreaIN";
+        notasTxtArea.id = "textAreaInternalNotes";
+        notasTxtArea.addEventListener('click', validarInput);
         notasTxtArea.cols = "30";
         notasTxtArea.rows = '10';
         //#endregion
@@ -246,6 +267,10 @@ async function loadElements(){
     originDIV.insertBefore(divGeneral, firstChildOrigin);
     
     
+
+    function validarInput(){
+        notasTxtArea.className ='TextAreaIN';
+    }
     
     //ID Name = name of the Button, this would refer as the shown in the Label TAG
     //tagElement = Is where the Input element will append as Child
@@ -301,11 +326,12 @@ async function loadElements(){
     }
     
     function printInfoSherlockArea(){
-        submitActivation = 0;
-        /*alert(productoSeleccion + ' ' + metodoPagoSeleccion + ' ' + ciudadSeleccion);*/
+        
+        let sherlockTextArea = document.getElementsByClassName('_css-glQrDZ')[0];
+   
         sherlockTextArea.innerHTML = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteMonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + miscMonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://docs.google.com/document/d/1w-tpeoQ2RElxIRLJBVrvAl9v8jR0ka4OFtrlAtFAYpU/edit' + '}';
-
-        //sherlockTextArea.value
+        
+        sherlockTextArea.value = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteMonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + miscMonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://docs.google.com/document/d/1w-tpeoQ2RElxIRLJBVrvAl9v8jR0ka4OFtrlAtFAYpU/edit' + '}';
 
         binSeleccion = 'N/A';
         ajusteFareSeleccion = 'N/A';
@@ -314,7 +340,7 @@ async function loadElements(){
         miscMonedaSeleccion = 'N/A';
         reglaSeleccion = 'N/A';
         submitActivation = 0;
-        
+
     }
 }
 
@@ -333,6 +359,7 @@ async function retrieveData(dbLink){
             metodosPagoRawData = datos;
             ciudadRawData = datos;
             productoRawData = datos;
+            monedasRawData = datos;
         }else if(rawDataBase.status === 401){
             console.log("The key is not correct");
         }else if(rawDataBase.status === 404){
@@ -366,117 +393,3 @@ function selectionMetodosPago(){
 }
 
 
-
-
-
-/*                 -------- DEPRECATED -----------
-//#region FileRead/Write
-async function fileReadCountries(){
-    const fileContent = await fetch('ListaPaises.txt')
-        .then(response => response.text())
-        .then(text => ciudadRawData = text);
-    let ciudadArray = ciudadRawData.split('\n');
-    
-    ciudadArray.forEach(element => {
-        createInputElement(element, ciudadForm, 'rb_paises');
-    });
-    
-
-}
-
-async function fileReadProducts(){
-    const fileContent = await fetch('Producto.txt')
-        .then(response => response.text())
-        .then(text => productoRawData = text);
-    let productoArray = productoRawData.split('\n');
-    
-    productoArray.forEach(element => {
-        createInputElement(element, productoForm, 'rb_productos');
-    });
-    
-
-}
-
-
-async function fileReadPaymentMethods(){
-    const fileContent2 = await fetch('MetodosPago.txt')
-        .then(response => response.text())
-        .then(text => metodosPagoRawData = text);
-    let metodosPagoArray = metodosPagoRawData.split('\n');
-
-    metodosPagoArray.forEach(element => {
-        createInputElement(element, formMPago, 'rb_mp');
-    });
-
-    let inputText = document.createElement('input');
-    inputText.type = 'text';
-    inputText.id = 'txt_PaymentMethodOther';
-    
-    formMPago.appendChild(inputText);
-
-}
-
-//#endregion*/
-
-
-/*
-    fileReadPaymentMethods();
-    fileReadCountries();
-    fileReadProducts();
-    //loadOnPage();
-
-    
-    //#region Concatenation Variables
-    let txt_PaymentMethod;
-    let txt_City;
-
-    
-    //#endregion
-
-    //#region DOM Gattering
-    /*const eaterButton = document.querySelector("#eaterBTN");
-    const riderButton = document.querySelector("#riderBTN");
-    const productoButton = document.querySelector('#productoBTN');
-    const pagoButton = document.querySelector("#pagoBTN");
-    const ciudadButton = document.querySelector("#ciudadBTN");
-    const productoForm = document.querySelector('#productoForm');
-    const ciudadForm = document.querySelector("#ciudadForm");
-    const metodosPagoForm = document.querySelector("#metodoPagoForm");
-    const submitButton = document.querySelector("#submitBTN");
-    const countryListTextArea = document.querySelector("#ListaPaises");
-    const generalContainer = document.querySelector('#generalContainer');*/
-    //#endregion
-
-    //#region Accessing Sherlock Page
-   /* function loadOnPage(){
-        
-        
-        var elementoAfter = document.getElementsByClassName('css-leASAL')[0];
-
-        origin.insertBefore(generalContainer, elementoAfter);
-    }*/
-
-
-
-    //#endregion
-    //#region Buttons actions "Click"
-    /*
-    //EventListener Eater
-    eaterButton.addEventListener("click", n => {
-        eaterButton.className = "eaterReady"
-        riderButton.className = "riderBTN";
-        }
-        );
-
-
-    //EventListener Rider
-    riderButton.addEventListener("click", n => {
-        eaterButton.className = "eaterBTN"
-        riderButton.className = "riderReady";
-        }
-        );
-    */
-
-    //#endregion
-
-    //document.addEventListener("DOMContentLoaded", loadLists);

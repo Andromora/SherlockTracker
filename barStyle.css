@@ -84,6 +84,7 @@ form {
     display: none;
     grid-template-columns: 25px 200px;
     position: absolute;
+    z-index: 5;
     background-color: var(--baseColor);
     min-width: 250px;
 }
@@ -151,18 +152,19 @@ form label:hover{
     border: 0px;
 }
 
-.TextArea {
-    font-size: 18px;
-    display: none;
-    position: absolute;
+.TextAreaIN {
+    font-size: 18px !important;
+    display: none !important;
+    position: absolute !important;
+    z-index: 5 !important;
 }
 
 .NotasBTN:hover {
     background-color: var(--selectedColor);
 }
 
-.NotasBTN:hover .TextArea{
-    display: flex;
+.NotasBTN:hover .TextAreaIN{
+    display: flex !important;
 }
 
 .generalBTN div {
