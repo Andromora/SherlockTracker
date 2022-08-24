@@ -10,10 +10,8 @@ let miscMontoSeleccion = 'N/A';
 let miscMonedaSeleccion = 'N/A';
 let reglaSeleccion = 'N/A';
 let submitActivation = 0;
-let ciudadRawData;
-let metodosPagoRawData;
-let productoRawData;
-let monedasRawData;
+let dbRawData;
+
 
 let dbProductos = 'https://sherlock-project-5a8eb-default-rtdb.firebaseio.com/producto.json';
 let dbPaises = 'https://sherlock-project-5a8eb-default-rtdb.firebaseio.com/ciudad.json';
@@ -51,6 +49,7 @@ function checkSherlockStatement(){
 function confirmCheckBox(){
     let countcbSelection = document.getElementsByClassName('_css-fJmKOk').length;
     let cbSelection = document.getElementsByClassName('_css-fJmKOk');
+    
     let bandera = 1;
     console.log(countcbSelection);
     console.log(cbSelection[1]);
@@ -68,6 +67,7 @@ async function loadElements(){
 
     let originDIV = document.getElementsByClassName('_css-dnPEvs')[0];
     let firstChildOrigin = document.getElementsByClassName('_css-aNItu')[1];
+    let sidePanel = document.getElementsByClassName('_css-laIMNJ')[0]; //This element is for removing the focus that not allow to write in the text box and textarea.
    // let sherlockTextArea = document.getElementsByClassName('_css-fqyxNi')[3]; //_css-glQrDZ _css-glQrDZ
 
     /*originDIV.style.background = "black";*/
@@ -102,11 +102,12 @@ async function loadElements(){
     let botonOtros = document.createElement('button');
     botonOtros.className="generalBTN";
     botonOtros.id="OtrosBTN";
-    botonOtros.appendChild(document.createTextNode("Otors"));
+    botonOtros.appendChild(document.createTextNode("Otros"));
 
     let botonNotas = document.createElement('button');
     botonNotas.className="NotasBTN";
     botonNotas.id="NotasBTN";
+    botonNotas.addEventListener("mouseenter", removingFocusEvent);
     botonNotas.appendChild(document.createTextNode("Notas"));
 
     let botonSubmit = document.createElement('button');
@@ -124,7 +125,7 @@ async function loadElements(){
         
     await retrieveData(dbProductos);
 
-    metodosPagoRawData.forEach(element => {
+    dbRawData.forEach(element => {
         createInputElement(element, formProducto, 'uberProducts');
     });
     
@@ -135,7 +136,7 @@ async function loadElements(){
 
     await retrieveData(dbMetodosPago);
 
-    metodosPagoRawData.forEach(element => {
+    dbRawData.forEach(element => {
         createInputElement(element, formMPago, 'metodoDePago');
     });
 
@@ -145,7 +146,7 @@ async function loadElements(){
        
     await retrieveData(dbPaises);
 
-    metodosPagoRawData.forEach(element => {
+    dbRawData.forEach(element => {
         createInputElement(element, formPaises, 'listaPaises');
     });
 
@@ -159,6 +160,9 @@ async function loadElements(){
         binInput.type = 'radio';
         binInput.id = 'enLista';
         binInput.name = 'binInfo';
+        binInput.addEventListener('change', ()=>{
+            binSeleccion = 'En Lista';
+        })
     formBin.appendChild(binInput);
     let binLabel = document.createElement('label');
         binLabel.htmlFor = 'enLista';
@@ -169,16 +173,19 @@ async function loadElements(){
         binInput2.type = 'radio';
         binInput2.id = 'noListado';
         binInput2.name = 'binInfo';
+        binInput2.addEventListener('change', ()=>{
+            binSeleccion = 'No Listado';
+        })
     formBin.appendChild(binInput2);
     let binLabel2 = document.createElement('label');
         binLabel2.htmlFor = 'noListado';
         binLabel2.innerText = "No Listado";
     formBin.appendChild(binLabel2);
     formBin.appendChild(document.createElement('p'));
-        let BinInput = document.createElement('input');
-        BinInput.type = 'text';
-        BinInput.id ="BinTextBox";
-    formBin.appendChild(BinInput);
+        let BinInputText = document.createElement('input');
+        BinInputText.type = 'text';
+        BinInputText.id ="BinTextBox";
+    formBin.appendChild(BinInputText);
         //#endregion
 
     //#region otros
@@ -201,6 +208,29 @@ async function loadElements(){
             AjusteInput2.id ="ajusteMoneda";
             AjusteInput2.placeholder = "Moneda";
         AjusteDiv.appendChild(AjusteInput2);
+
+         /*   let ajusteMyscMoneda = document.createElement('h3');
+            ajusteMyscMoneda.innerText = 'Moneda';
+        
+
+            let formMyscMoneda = document.createElement('form');
+            formMyscMoneda.className="ciudadDropDown";
+            formMyscMoneda.id="myscMoneda";
+            await retrieveData(dbCurrency);
+
+            dbRawData.forEach(element => {
+            createInputElement(element, formMyscMoneda, 'myscPaymentMoneda');
+            });
+
+        ajusteMyscMoneda.appendChild(formMyscMoneda);
+        AjusteDiv.appendChild(ajusteMyscMoneda);*/
+
+    
+
+
+
+
+
     formMOtros.appendChild(AjusteDiv);
     
     formMOtros.appendChild(document.createElement('p'));
@@ -326,6 +356,11 @@ async function loadElements(){
     }
     
     function printInfoSherlockArea(){
+
+        if(BinInputText.value != ''){
+            binSeleccion += '|' + BinInputText.value;
+            alert(BinInputText.value);
+        }
         
         let sherlockTextArea = document.getElementsByClassName('_css-glQrDZ')[0];
    
@@ -342,10 +377,17 @@ async function loadElements(){
         submitActivation = 0;
 
     }
+
+    function removingFocusEvent(){
+        
+        
+        console.log(sidePanel);
+        sidePanel.removeEventListener('focus');
+    }
 }
 
 
-
+//This method is for gathering the data from the server.
 async function retrieveData(dbLink){
     console.log("We are working on your task")
 
@@ -356,10 +398,7 @@ async function retrieveData(dbLink){
         if(rawDataBase.status === 200){
             console.log("Status 200")
             const datos = await rawDataBase.json();
-            metodosPagoRawData = datos;
-            ciudadRawData = datos;
-            productoRawData = datos;
-            monedasRawData = datos;
+            dbRawData = datos;
         }else if(rawDataBase.status === 401){
             console.log("The key is not correct");
         }else if(rawDataBase.status === 404){
