@@ -82,32 +82,81 @@ async function loadElements(){
     let botonProducto = document.createElement('button');
     botonProducto.className="generalBTN";
     botonProducto.id="productoBTN";
+    botonProducto.addEventListener('focusin', (event)=>{
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+    });
+
+    botonProducto.addEventListener('focusout', (event)=>{
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+    });
     botonProducto.appendChild(document.createTextNode("Producto"));
 
     let botonMPago = document.createElement('button');
     botonMPago.className="generalBTN";
     botonMPago.id="pagoBTN";
+    botonMPago.addEventListener('focusin', (event)=>{
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+    });
+
+    botonMPago.addEventListener('focusout', (event)=>{
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+    });
     botonMPago.appendChild(document.createTextNode("M.Pago"));
 
     let botonCiudad = document.createElement('button');
     botonCiudad.className="generalBTN";
     botonCiudad.id="ciudadBTN";
+    botonCiudad.addEventListener('focusin', (event)=>{
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+    });
+
+    botonCiudad.addEventListener('focusout', (event)=>{
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+    });
     botonCiudad.appendChild(document.createTextNode("Ciudad"));
     
     let botonBin = document.createElement('button');
     botonBin.className="generalBTN";
     botonBin.id="binBTN";
+    botonBin.addEventListener('focusin', (event)=>{
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+    });
+
+    botonBin.addEventListener('focusout', (event)=>{
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+    });
+    botonBin.addEventListener('click', ()=>{
+        alert("tome por la madre");
+    });
     botonBin.appendChild(document.createTextNode("Bin"));
     
     let botonOtros = document.createElement('button');
     botonOtros.className="generalBTN";
     botonOtros.id="OtrosBTN";
+    botonOtros.addEventListener('focusin', (event)=>{
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+    });
+
+    botonOtros.addEventListener('focusout', (event)=>{
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+    });
     botonOtros.appendChild(document.createTextNode("Otros"));
 
     let botonNotas = document.createElement('button');
     botonNotas.className="NotasBTN";
     botonNotas.id="NotasBTN";
     botonNotas.addEventListener("mouseenter", removingFocusEvent);
+    botonNotas.addEventListener("click", removingFocusEvent);
     botonNotas.appendChild(document.createTextNode("Notas"));
 
     let botonSubmit = document.createElement('button');
@@ -269,28 +318,37 @@ async function loadElements(){
     let notasTxtArea = document.createElement('textarea');
         notasTxtArea.className = "TextAreaIN";
         notasTxtArea.id = "textAreaInternalNotes";
-        notasTxtArea.addEventListener('click', validarInput);
+        notasTxtArea.addEventListener('focusin', (event)=>{
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+        });
+        notasTxtArea.addEventListener('focusout', (event)=>{
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+        });
         notasTxtArea.cols = "30";
         notasTxtArea.rows = '10';
+
         //#endregion
     
 
     //Appends to General Buttons
+    botonNotas.appendChild(notasTxtArea);
     botonBin.appendChild(formBin);
     botonProducto.appendChild(formProducto);
     botonMPago.appendChild(formMPago);
     botonCiudad.appendChild(formPaises);
     botonOtros.appendChild(formMOtros);
-    botonNotas.appendChild(notasTxtArea);
+    
     
 
     //Appends General
+    divGeneral.appendChild(botonNotas);
     divGeneral.appendChild(botonProducto);
     divGeneral.appendChild(botonMPago);
     divGeneral.appendChild(botonCiudad);
     divGeneral.appendChild(botonBin);
     divGeneral.appendChild(botonOtros);
-    divGeneral.appendChild(botonNotas);
     divGeneral.appendChild(botonSubmit);
 
     //Append DOM
@@ -379,10 +437,48 @@ async function loadElements(){
     }
 
     function removingFocusEvent(){
+
+        let textArea = document.getElementsByClassName('_css-glQrDZ')[0];
+    /*
         
+        let elfamosoDiv = document.getElementsByClassName('_css-PKJb')[1];
+        let root = document.getElementById('root');
+        let eventos = DOMDebugger.getEventListeners(root);
+        eventos['focusin'].forEach(e => root.removeEventListener('focusin', e.listener));
+
+    */
+
+        /*document.addEventListener('click', (event)=>{
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+        });
+
+        elfamosoDiv.addEventListener('focusin', (event)=>{
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+        });
+       
+        elfamosoDiv.addEventListener('focusout', (event)=>{
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+        });
+
+
+        root.addEventListener('click', (event)=>{
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+        });
+*/
+        textArea.addEventListener('focusin', (event)=>{
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+        });
+        textArea.addEventListener('focusout', (event)=>{
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+        });
         
-        console.log(sidePanel);
-        sidePanel.removeEventListener('focus');
+
     }
 }
 
