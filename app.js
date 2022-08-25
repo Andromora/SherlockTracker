@@ -5,10 +5,12 @@ let ciudadSeleccion;
 let productoSeleccion;
 let binSeleccion = 'N/A';
 let ajusteFareSeleccion = 'N/A';
+let ajusteAjustadoASelection = 'N/A';
 let ajusteMonedaSeleccion = 'N/A';
 let miscMontoSeleccion = 'N/A';
 let miscMonedaSeleccion = 'N/A';
 let reglaSeleccion = 'N/A';
+let metodoDePagoOtherSelection = 'N/A';
 let submitActivation = 0;
 let dbRawData;
 
@@ -46,21 +48,6 @@ function checkSherlockStatement(){
     );
 };
 
-function confirmCheckBox(){
-    let countcbSelection = document.getElementsByClassName('_css-fJmKOk').length;
-    let cbSelection = document.getElementsByClassName('_css-fJmKOk');
-    
-    let bandera = 1;
-    console.log(countcbSelection);
-    console.log(cbSelection[1]);
-    do{
-        cbSelection[bandera].addEventListener('change', ()=>{
-            //alert('Selecciono la opcion');
-            setTimeout(loadElements, 3000);
-        });
-        bandera ++;
-    }while(bandera <= countcbSelection);
-}
 
 
 async function loadElements(){
@@ -68,11 +55,8 @@ async function loadElements(){
     let originDIV = document.getElementsByClassName('_css-dnPEvs')[0];
     let firstChildOrigin = document.getElementsByClassName('_css-aNItu')[1];
     let sidePanel = document.getElementsByClassName('_css-laIMNJ')[0]; //This element is for removing the focus that not allow to write in the text box and textarea.
-   // let sherlockTextArea = document.getElementsByClassName('_css-fqyxNi')[3]; //_css-glQrDZ _css-glQrDZ
 
-    /*originDIV.style.background = "black";*/
-
-    //Creacion de Contenido HTML
+    //#region  Creacion de Contenido HTML
     //Div general
     let divGeneral = document.createElement('div');
     divGeneral.className="container";
@@ -168,6 +152,8 @@ async function loadElements(){
     //#endregion
 
     //#region Llenado de Forms
+
+    //Form de Producto
     let formProducto = document.createElement('form');
     formProducto.className="ciudadDropDown";
     formProducto.id="productoForm";
@@ -178,10 +164,15 @@ async function loadElements(){
         createInputElement(element, formProducto, 'uberProducts');
     });
     
+    //Form Metodos de Pago
     let formMPago = document.createElement('form');
     formMPago.className="ciudadDropDown";
     formMPago.id="metodoPagoForm";
-    
+    formMPago.appendChild(document.createElement('p'));
+    let otherInput = document.createElement('input');
+        otherInput.type = 'text';
+        otherInput.placeholder = 'Otro Método Pago';
+    formMPago.appendChild(otherInput);
 
     await retrieveData(dbMetodosPago);
 
@@ -189,6 +180,7 @@ async function loadElements(){
         createInputElement(element, formMPago, 'metodoDePago');
     });
 
+    //Form de Ciudad
     let formPaises = document.createElement('form');
     formPaises.className="ciudadDropDown";
     formPaises.id="paisesForm";
@@ -250,12 +242,12 @@ async function loadElements(){
             let AjusteInput = document.createElement('input');
             AjusteInput.type = 'text';
             AjusteInput.id ="ajusteMonto";
-            AjusteInput.placeholder = "Fare";
+            AjusteInput.placeholder = "Act. Fare (Antes del Ajuste)";
         AjusteDiv.appendChild(AjusteInput);
             let AjusteInput2 = document.createElement('input');
             AjusteInput2.type = 'text';
-            AjusteInput2.id ="ajusteMoneda";
-            AjusteInput2.placeholder = "Moneda";
+            AjusteInput2.id ="ajustadoA";
+            AjusteInput2.placeholder = "Ajustado A";
         AjusteDiv.appendChild(AjusteInput2);
 
          /*   let ajusteMyscMoneda = document.createElement('h3');
@@ -293,12 +285,9 @@ async function loadElements(){
             MiscInput.id ="miscMonto";
             MiscInput.placeholder = "Monto";
         MiscPaymentDiv.appendChild(MiscInput);
-            let MiscInput2 = document.createElement('input');
-            MiscInput2.type = 'text';
-            MiscInput2.id ="miscMoneda";
-            MiscInput2.placeholder = "Moneda";
-        MiscPaymentDiv.appendChild(MiscInput2);
     formMOtros.appendChild(MiscPaymentDiv);
+
+
 
     formMOtros.appendChild(document.createElement('p'));
         let reglaDiv = document.createElement('div');
@@ -331,7 +320,7 @@ async function loadElements(){
 
         //#endregion
     
-
+    //#region Appends
     //Appends to General Buttons
     botonNotas.appendChild(notasTxtArea);
     botonBin.appendChild(formBin);
@@ -353,13 +342,10 @@ async function loadElements(){
 
     //Append DOM
     originDIV.insertBefore(divGeneral, firstChildOrigin);
+    //#endregion
     
-    
+    //#region RadioButtons Creation
 
-    function validarInput(){
-        notasTxtArea.className ='TextAreaIN';
-    }
-    
     //ID Name = name of the Button, this would refer as the shown in the Label TAG
     //tagElement = Is where the Input element will append as Child
     function createInputElement(IDName, tagElement, rbname){
@@ -385,27 +371,110 @@ async function loadElements(){
         if(tagID === formProducto){
             tagID.parentNode.className='pagoBTNSelected';
             tagID.parentNode.childNodes[0].nodeValue=rbPressed;
-            console.log(rbPressed);
+            //console.log(rbPressed);
             productoSeleccion = rbPressed;
             submitActivation ++;
             activationSubmitBTN();
         }else if(tagID === formMPago){
             tagID.parentNode.className='pagoBTNSelected';
             tagID.parentNode.childNodes[0].nodeValue=rbPressed;
-            console.log(rbPressed);
+            //console.log(rbPressed);
             metodoPagoSeleccion = rbPressed;
             submitActivation ++;
             activationSubmitBTN();
         }else if(tagID === formPaises){
             tagID.parentNode.className='pagoBTNSelected';
             tagID.parentNode.childNodes[0].nodeValue=rbPressed;
-            console.log(rbPressed);
+            //console.log(rbPressed);
             ciudadSeleccion = rbPressed;
             submitActivation ++;
             activationSubmitBTN();
         }
         
     }
+    //#endregion
+    
+    //#endregion
+
+    //#region Text Validation
+    function validarInput(texto){
+        
+        if(texto.match(/\|/)){
+            alert("El símbolo PIPE ( | ) no es permitido");
+            return false;
+        }else if(texto.match(/\:/)){
+            alert("El símbolo DOS PUNTOS ( : ) no es permitido");
+            return false;
+        }else if(texto.match(/(\{|\})/)){
+            alert("El símbolo de CORCHETE ( {} ) no es permitido");
+            return false;
+        }else{
+            return true;
+        }
+        
+    }
+
+    function collectText(){
+        
+        if(BinInputText.value != ''){
+            if (validarInput(BinInputText.value)){
+                binSeleccion += '|' + BinInputText.value;
+                
+            }else{
+                return false;
+            }
+        }
+
+        if(MiscInput.value != ''){
+            if (validarInput(MiscInput.value)){
+                miscMontoSeleccion = MiscInput.value;
+                
+            }else{
+                return false;
+            }   
+        }
+
+        if(AjusteInput.value != ''){
+            if(validarInput(AjusteInput.value)){
+                ajusteFareSeleccion = AjusteInput.value;
+                
+            }else{
+                return false;
+            } 
+        }
+        
+        if(AjusteInput2.value != ''){
+            if(validarInput(AjusteInput2.value)){
+                ajusteAjustadoASelection = AjusteInput2.value;
+                
+            }else{
+                return false;
+            } 
+        }
+
+        if(reglaInput.value != ''){
+            if(validarInput(reglaInput.value)){
+                reglaSeleccion = reglaInput.value;
+                
+            }else{
+                return false;
+            }
+        }
+
+        if(notasTxtArea.value != ''){
+            if(validarInput(notasTxtArea.value)){
+
+            }else{
+                return false;
+            }
+        }
+
+        return true;
+    }
+    //#endregion
+
+
+    
     
     function activationSubmitBTN(){
         if(submitActivation === 3){
@@ -414,61 +483,29 @@ async function loadElements(){
     }
     
     function printInfoSherlockArea(){
-
-        if(BinInputText.value != ''){
-            binSeleccion += '|' + BinInputText.value;
-            alert(BinInputText.value);
-        }
         
-        let sherlockTextArea = document.getElementsByClassName('_css-glQrDZ')[0];
+        if (collectText()){
+            let sherlockTextArea = document.getElementsByClassName('_css-glQrDZ')[0];
    
-        sherlockTextArea.innerHTML = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteMonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + miscMonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://docs.google.com/document/d/1w-tpeoQ2RElxIRLJBVrvAl9v8jR0ka4OFtrlAtFAYpU/edit' + '}';
-        
-        sherlockTextArea.value = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteMonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + miscMonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://docs.google.com/document/d/1w-tpeoQ2RElxIRLJBVrvAl9v8jR0ka4OFtrlAtFAYpU/edit' + '}';
+            sherlockTextArea.innerHTML = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteAjustadoASelection + '|' + ajusteMonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + miscMonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://docs.google.com/document/d/1w-tpeoQ2RElxIRLJBVrvAl9v8jR0ka4OFtrlAtFAYpU/edit' + '}';
+            
+            sherlockTextArea.value = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteAjustadoASelection + '|' + ajusteMonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + miscMonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://docs.google.com/document/d/1w-tpeoQ2RElxIRLJBVrvAl9v8jR0ka4OFtrlAtFAYpU/edit' + '}';
 
-        binSeleccion = 'N/A';
-        ajusteFareSeleccion = 'N/A';
-        ajusteMonedaSeleccion = 'N/A';
-        miscMontoSeleccion = 'N/A';
-        miscMonedaSeleccion = 'N/A';
-        reglaSeleccion = 'N/A';
-        submitActivation = 0;
+            binSeleccion = 'N/A';
+            ajusteFareSeleccion = 'N/A';
+            ajusteMonedaSeleccion = 'N/A';
+            miscMontoSeleccion = 'N/A';
+            miscMonedaSeleccion = 'N/A';
+            reglaSeleccion = 'N/A';
+            submitActivation = 0;
+        }
 
     }
 
     function removingFocusEvent(){
 
         let textArea = document.getElementsByClassName('_css-glQrDZ')[0];
-    /*
-        
-        let elfamosoDiv = document.getElementsByClassName('_css-PKJb')[1];
-        let root = document.getElementById('root');
-        let eventos = DOMDebugger.getEventListeners(root);
-        eventos['focusin'].forEach(e => root.removeEventListener('focusin', e.listener));
 
-    */
-
-        /*document.addEventListener('click', (event)=>{
-            event.stopImmediatePropagation();
-            event.stopPropagation();
-        });
-
-        elfamosoDiv.addEventListener('focusin', (event)=>{
-            event.stopImmediatePropagation();
-            event.stopPropagation();
-        });
-       
-        elfamosoDiv.addEventListener('focusout', (event)=>{
-            event.stopImmediatePropagation();
-            event.stopPropagation();
-        });
-
-
-        root.addEventListener('click', (event)=>{
-            event.stopImmediatePropagation();
-            event.stopPropagation();
-        });
-*/
         textArea.addEventListener('focusin', (event)=>{
             event.stopImmediatePropagation();
             event.stopPropagation();
