@@ -6,9 +6,8 @@ let productoSeleccion;
 let binSeleccion = 'N/A';
 let ajusteFareSeleccion = 'N/A';
 let ajusteAjustadoASelection = 'N/A';
-let ajusteMonedaSeleccion = 'N/A';
 let miscMontoSeleccion = 'N/A';
-let miscMonedaSeleccion = 'N/A';
+let MonedaSeleccion = 'N/A';
 let reglaSeleccion = 'N/A';
 let metodoDePagoOtherSelection = 'N/A';
 let submitActivation = 0;
@@ -18,7 +17,8 @@ let dbRawData;
 let dbProductos = 'https://sherlock-project-5a8eb-default-rtdb.firebaseio.com/producto.json';
 let dbPaises = 'https://sherlock-project-5a8eb-default-rtdb.firebaseio.com/ciudad.json';
 let dbMetodosPago = 'https://sherlock-project-5a8eb-default-rtdb.firebaseio.com/metodosPago.json';
-let dbCurrency = 'https://sherlock-project-5a8eb-default-rtdb.firebaseio.com/currency';
+let dbCurrency = ['ARS','BOB','BRL','CLP','COP','CRC','DOP','GTQ','HNL','MXM','PEN','PYG','TTD','USD','UYU','VEB'];
+
 
 let metodoPagoSeleccionado;
 //#endregion
@@ -266,11 +266,6 @@ async function loadElements(){
         ajusteMyscMoneda.appendChild(formMyscMoneda);
         AjusteDiv.appendChild(ajusteMyscMoneda);*/
 
-    
-
-
-
-
 
     formMOtros.appendChild(AjusteDiv);
     
@@ -287,7 +282,28 @@ async function loadElements(){
         MiscPaymentDiv.appendChild(MiscInput);
     formMOtros.appendChild(MiscPaymentDiv);
 
+    formMOtros.appendChild(document.createElement('p'));
+        let monedaSubDIV = document.createElement('div');
+        monedaSubDIV.className = 'subDivNone';
 
+        let MonedaDiv = document.createElement('div');
+        MonedaDiv.className =   "ajuste monedaDiv";
+            let MonedaH3 = document.createElement('h3');
+            MonedaH3.innerText = "Moneda";
+            MonedaH3.addEventListener('click', ()=>{
+                if (monedaSubDIV.className === 'subDivNone'){
+                    monedaSubDIV.className = 'subDiv';
+                }else{
+                    monedaSubDIV.className = 'subDivNone';
+                }
+            });
+        MonedaDiv.appendChild(MonedaH3);
+
+        dbCurrency.forEach(e =>{
+            createInputElement(e, monedaSubDIV, 'moneda');
+        });
+        MonedaDiv.appendChild(monedaSubDIV);
+    formMOtros.appendChild(MonedaDiv);
 
     formMOtros.appendChild(document.createElement('p'));
         let reglaDiv = document.createElement('div');
@@ -348,6 +364,7 @@ async function loadElements(){
 
     //ID Name = name of the Button, this would refer as the shown in the Label TAG
     //tagElement = Is where the Input element will append as Child
+    //rbname = Is the name in commun for the whole radiobuttons interaction.
     function createInputElement(IDName, tagElement, rbname){
         let tempInput = document.createElement("input");
         tempInput.type = 'radio';
@@ -389,11 +406,17 @@ async function loadElements(){
             ciudadSeleccion = rbPressed;
             submitActivation ++;
             activationSubmitBTN();
+        }else if(tagID === monedaSubDIV){
+            MonedaH3.innerText = rbPressed;
+            MonedaSeleccion = rbPressed;
+            monedaSubDIV.className = 'subDivNone';
         }
         
     }
     //#endregion
     
+    //#endregion
+
     //#endregion
 
     //#region Text Validation
@@ -473,8 +496,7 @@ async function loadElements(){
     }
     //#endregion
 
-
-    
+    //#region Functions
     
     function activationSubmitBTN(){
         if(submitActivation === 3){
@@ -487,15 +509,14 @@ async function loadElements(){
         if (collectText()){
             let sherlockTextArea = document.getElementsByClassName('_css-glQrDZ')[0];
    
-            sherlockTextArea.innerHTML = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteAjustadoASelection + '|' + ajusteMonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + miscMonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://docs.google.com/document/d/1w-tpeoQ2RElxIRLJBVrvAl9v8jR0ka4OFtrlAtFAYpU/edit' + '}';
+            sherlockTextArea.innerHTML = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteAjustadoASelection + '|' + MonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + MonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://docs.google.com/document/d/1w-tpeoQ2RElxIRLJBVrvAl9v8jR0ka4OFtrlAtFAYpU/edit' + '}';
             
-            sherlockTextArea.value = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteAjustadoASelection + '|' + ajusteMonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + miscMonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://docs.google.com/document/d/1w-tpeoQ2RElxIRLJBVrvAl9v8jR0ka4OFtrlAtFAYpU/edit' + '}';
+            sherlockTextArea.value = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteAjustadoASelection + '|' + MonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + MonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://docs.google.com/document/d/1w-tpeoQ2RElxIRLJBVrvAl9v8jR0ka4OFtrlAtFAYpU/edit' + '}';
 
             binSeleccion = 'N/A';
             ajusteFareSeleccion = 'N/A';
-            ajusteMonedaSeleccion = 'N/A';
             miscMontoSeleccion = 'N/A';
-            miscMonedaSeleccion = 'N/A';
+            MonedaSeleccion = 'N/A';
             reglaSeleccion = 'N/A';
             submitActivation = 0;
         }
@@ -517,6 +538,7 @@ async function loadElements(){
         
 
     }
+    //#endregion
 }
 
 
