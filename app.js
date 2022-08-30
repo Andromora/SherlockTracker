@@ -54,7 +54,7 @@ async function loadElements(){
 
     let originDIV = document.getElementsByClassName('_css-dnPEvs')[0];
     let firstChildOrigin = document.getElementsByClassName('_css-aNItu')[1];
-    let sidePanel = document.getElementsByClassName('_css-laIMNJ')[0]; //This element is for removing the focus that not allow to write in the text box and textarea.
+    //let sidePanel = document.getElementsByClassName('_css-laIMNJ')[0]; //This element is for removing the focus that not allow to write in the text box and textarea.
 
     //#region  Creacion de Contenido HTML
     //Div general
@@ -117,9 +117,9 @@ async function loadElements(){
         event.stopImmediatePropagation();
         event.stopPropagation();
     });
-    botonBin.addEventListener('click', ()=>{
-        alert("tome por la madre");
-    });
+    /*botonBin.addEventListener('click', ()=>{
+        //alert("tome por la madre");
+    });*/
     botonBin.appendChild(document.createTextNode("Bin"));
     
     let botonOtros = document.createElement('button');
@@ -197,6 +197,23 @@ async function loadElements(){
     let formBin = document.createElement('form');
         formBin.className = "BinDropDown";
         formBin.id = 'BinForm';
+
+    let binNA = document.createElement('input');
+        binNA.type = 'radio';
+        binNA.id = 'binNA';
+        binNA.name = 'binInfo';
+        binNA.addEventListener('change', ()=>{
+            binSeleccion = 'N/A';
+            submitActivation ++;
+            activationSubmitBTN();
+            botonBin.className = "pagoBTNSelected";
+        })
+    formBin.appendChild(binNA);
+    let binLabelNA = document.createElement('label');
+        binLabelNA.htmlFor = 'binNA';
+        binLabelNA.innerText = "N/A";
+    formBin.appendChild(binLabelNA);
+
     let binInput = document.createElement('input');
         binInput.type = 'radio';
         binInput.id = 'enLista';
@@ -499,19 +516,29 @@ async function loadElements(){
     //#region Functions
     
     function activationSubmitBTN(){
-        if(submitActivation === 3){
+        if(submitActivation === 4){
             botonSubmit.className = "submitReady";
+        }else{
+            botonSubmit.className = "submitBTN";
         }
     }
     
     function printInfoSherlockArea(){
         
         if (collectText()){
-            let sherlockTextArea = document.getElementsByClassName('_css-glQrDZ')[0];
+            //let sherlockTextArea = document.getElementsByClassName('_css-glQrDZ')[0];
    
-            sherlockTextArea.innerHTML = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteAjustadoASelection + '|' + MonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + MonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://docs.google.com/document/d/1w-tpeoQ2RElxIRLJBVrvAl9v8jR0ka4OFtrlAtFAYpU/edit' + '}';
+            // sherlockTextArea.innerHTML = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteAjustadoASelection + '|' + MonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + MonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://uberkb.lightning.force.com/articles/es_MX/Knowledge/Verificación-de-notas-internas-por-el-equipo-de-CRT-en-Sherlock' + '}';
             
-            sherlockTextArea.value = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteAjustadoASelection + '|' + MonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + MonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://docs.google.com/document/d/1w-tpeoQ2RElxIRLJBVrvAl9v8jR0ka4OFtrlAtFAYpU/edit' + '}';
+            // sherlockTextArea.value = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteAjustadoASelection + '|' + MonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + MonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://uberkb.lightning.force.com/articles/es_MX/Knowledge/Verificación-de-notas-internas-por-el-equipo-de-CRT-en-Sherlock' + '}';
+
+            let textToClipBoard = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteAjustadoASelection + '|' + MonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + MonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://uberkb.lightning.force.com/articles/es_MX/Knowledge/Verificación-de-notas-internas-por-el-equipo-de-CRT-en-Sherlock' + '}';
+
+
+            navigator.clipboard.writeText(textToClipBoard);
+
+            alert('Notas Listas');
+
 
             binSeleccion = 'N/A';
             ajusteFareSeleccion = 'N/A';
@@ -519,6 +546,20 @@ async function loadElements(){
             MonedaSeleccion = 'N/A';
             reglaSeleccion = 'N/A';
             submitActivation = 0;
+
+            //Reverse all the buttons to original status for the next interaction
+            let resolvedBTN = document.getElementsByClassName('_css-lajzqQ')[0];
+            resolvedBTN.addEventListener('click', ()=>{
+                activationSubmitBTN();
+                botonProducto.className="generalBTN";
+                botonProducto.appendChild(document.createTextNode("Producto"));
+                botonMPago.className="generalBTN";
+                botonMPago.appendChild(document.createTextNode("M.Pago"));
+                botonCiudad.className="generalBTN";
+                botonCiudad.appendChild(document.createTextNode("Ciudad"));
+                botonBin.className="generalBTN";
+                notasTxtArea.value = '';
+            });
         }
 
     }

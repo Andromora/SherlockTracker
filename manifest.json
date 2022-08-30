@@ -19,7 +19,7 @@
     "manifest_version": 3,
     "name": "Sherlock Tarcker",
     "offline_enabled": true,
-    "permissions": [ "clipboardRead", "storage", "debugger"],
+    "permissions": [ "clipboardRead", "storage", "debugger", "clipboardWrite"],
     "short_name": "Sherlock",
     "update_url": "https://clients2.google.com/service/update2/crx",
     "version": "1.8.1"
