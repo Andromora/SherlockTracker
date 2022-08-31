@@ -1,12 +1,15 @@
 //#region Golbal Variables
+let isActive = true;
 let LOB;
 let metodoPagoSeleccion;
 let ciudadSeleccion;
 let productoSeleccion;
 let binSeleccion = 'N/A';
+let binNumber = 'N/A';
 let ajusteFareSeleccion = 'N/A';
 let ajusteAjustadoASelection = 'N/A';
 let miscMontoSeleccion = 'N/A';
+let miscTripUUIDSelection = 'N/A';
 let MonedaSeleccion = 'N/A';
 let reglaSeleccion = 'N/A';
 let metodoDePagoOtherSelection = 'N/A';
@@ -44,14 +47,42 @@ function checkSherlockStatement(){
                 loadElements();
                 //confirmCheckBox();
             }
-        },2000
+        },1000
     );
 };
-
-
+/*
+async function confirmCheckBox(){
+    let countcbSelection = document.getElementsByClassName('_css-fJmKOk').length;
+    let cbSelection = document.getElementsByClassName('_css-fJmKOk');
+    let checkBoxOutside = document.getElementsByClassName('_css-fFDkEg');
+    //let checkBoxOutside = document.getElementsByClassName('_css-bnzDDb _css-PKJb');
+    
+    let bandera = 1;
+    
+    do{
+        
+        cbSelection[bandera].addEventListener('change', ()=>{
+            //alert(bandera);
+            if(isActive){
+                loadElements();
+            }
+        });
+        console.log(checkBoxOutside[bandera-1]);
+        checkBoxOutside[bandera-1].addEventListener('click', ()=>{
+            
+            if(isActive){
+                //setTimeout(loadElements, 200);
+                loadElements();
+            }
+        });
+    
+        bandera ++;
+    }while(bandera <= countcbSelection);
+}
+*/
 
 async function loadElements(){
-
+    isActive = false;
     let originDIV = document.getElementsByClassName('_css-dnPEvs')[0];
     let firstChildOrigin = document.getElementsByClassName('_css-aNItu')[1];
     //let sidePanel = document.getElementsByClassName('_css-laIMNJ')[0]; //This element is for removing the focus that not allow to write in the text box and textarea.
@@ -169,10 +200,10 @@ async function loadElements(){
     formMPago.className="ciudadDropDown";
     formMPago.id="metodoPagoForm";
     formMPago.appendChild(document.createElement('p'));
-    let otherInput = document.createElement('input');
-        otherInput.type = 'text';
-        otherInput.placeholder = 'Otro Método Pago';
-    formMPago.appendChild(otherInput);
+    let otherPaymentInput = document.createElement('input');
+        otherPaymentInput.type = 'text';
+        otherPaymentInput.placeholder = 'Otro Método Pago';
+    formMPago.appendChild(otherPaymentInput);
 
     await retrieveData(dbMetodosPago);
 
@@ -219,7 +250,10 @@ async function loadElements(){
         binInput.id = 'enLista';
         binInput.name = 'binInfo';
         binInput.addEventListener('change', ()=>{
+            submitActivation ++;
             binSeleccion = 'En Lista';
+            activationSubmitBTN()
+            
         })
     formBin.appendChild(binInput);
     let binLabel = document.createElement('label');
@@ -232,7 +266,10 @@ async function loadElements(){
         binInput2.id = 'noListado';
         binInput2.name = 'binInfo';
         binInput2.addEventListener('change', ()=>{
+            submitActivation ++;
             binSeleccion = 'No Listado';
+            activationSubmitBTN()
+            
         })
     formBin.appendChild(binInput2);
     let binLabel2 = document.createElement('label');
@@ -288,7 +325,7 @@ async function loadElements(){
     
     formMOtros.appendChild(document.createElement('p'));
         let MiscPaymentDiv = document.createElement('div');
-        MiscPaymentDiv.className = "MiscPayment";
+        MiscPaymentDiv.className = "ajuste";
             let MiscDivH3 = document.createElement('h3');
             MiscDivH3.innerText = "Misc Payment";
         MiscPaymentDiv.appendChild(MiscDivH3);
@@ -297,6 +334,16 @@ async function loadElements(){
             MiscInput.id ="miscMonto";
             MiscInput.placeholder = "Monto";
         MiscPaymentDiv.appendChild(MiscInput);
+    //formMOtros.appendChild(MiscPaymentDiv);
+
+    //formMOtros.appendChild(document.createElement('p'));
+        //let MiscTripDiv = document.createElement('div');
+        //MiscTripDiv.className = "MiscPayment";
+            let MiscTripInput = document.createElement('input');
+            MiscTripInput.type = 'text';
+            MiscTripInput.id ="miscMonto";
+            MiscTripInput.placeholder = "Trip UUID";
+            MiscPaymentDiv.appendChild(MiscTripInput);
     formMOtros.appendChild(MiscPaymentDiv);
 
     formMOtros.appendChild(document.createElement('p'));
@@ -461,6 +508,7 @@ async function loadElements(){
                 binSeleccion += '|' + BinInputText.value;
                 
             }else{
+                binSeleccion += '|N/A'
                 return false;
             }
         }
@@ -509,6 +557,23 @@ async function loadElements(){
             }
         }
 
+        if(MiscTripInput.value != ''){
+            if(validarInput(MiscTripInput.value)){
+                miscTripUUIDSelection = MiscTripInput.value;
+            }else{
+                return false;
+            }
+        }
+
+        if(otherPaymentInput.value != ''){
+            if(validarInput(otherPaymentInput.value)){
+                metodoPagoSeleccion += "|" + otherPaymentInput.value;
+            }else{
+                metodoPagoSeleccion += "|N/A";
+                return false;
+            }
+        }
+
         return true;
     }
     //#endregion
@@ -532,12 +597,12 @@ async function loadElements(){
             
             // sherlockTextArea.value = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteAjustadoASelection + '|' + MonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + MonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://uberkb.lightning.force.com/articles/es_MX/Knowledge/Verificación-de-notas-internas-por-el-equipo-de-CRT-en-Sherlock' + '}';
 
-            let textToClipBoard = 'CRT | {' + productoSeleccion + ':' + binSeleccion  + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteAjustadoASelection + '|' + MonedaSeleccion + ':' + reglaSeleccion + ':' + miscMontoSeleccion + '|' + MonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://uberkb.lightning.force.com/articles/es_MX/Knowledge/Verificación-de-notas-internas-por-el-equipo-de-CRT-en-Sherlock' + '}';
+            let textToClipBoard = 'CRT | {' + productoSeleccion + ':' + binSeleccion + ':' + ciudadSeleccion + ':' +  metodoPagoSeleccion + ':' + ajusteFareSeleccion + '|' + ajusteAjustadoASelection + '|' + MonedaSeleccion + ':' + reglaSeleccion + ':' + miscTripUUIDSelection + '|' + miscMontoSeleccion + '|' + MonedaSeleccion + ':' + notasTxtArea.value + ':' + 'More info about this note on the following Splash: https://uberkb.lightning.force.com/articles/es_MX/Knowledge/Verificación-de-notas-internas-por-el-equipo-de-CRT-en-Sherlock' + '}';
 
 
             navigator.clipboard.writeText(textToClipBoard);
 
-            alert('Notas Listas');
+            alert('Notas Listas y Copiadas. \nAhora ve al cuadro de Notas de Sherlock, y pegalas con el comando Ctrl + V');
 
 
             binSeleccion = 'N/A';
@@ -545,25 +610,34 @@ async function loadElements(){
             miscMontoSeleccion = 'N/A';
             MonedaSeleccion = 'N/A';
             reglaSeleccion = 'N/A';
+            
             submitActivation = 0;
-
-            //Reverse all the buttons to original status for the next interaction
-            let resolvedBTN = document.getElementsByClassName('_css-lajzqQ')[0];
-            resolvedBTN.addEventListener('click', ()=>{
-                activationSubmitBTN();
-                botonProducto.className="generalBTN";
-                botonProducto.appendChild(document.createTextNode("Producto"));
-                botonMPago.className="generalBTN";
-                botonMPago.appendChild(document.createTextNode("M.Pago"));
-                botonCiudad.className="generalBTN";
-                botonCiudad.appendChild(document.createTextNode("Ciudad"));
-                botonBin.className="generalBTN";
-                notasTxtArea.value = '';
-            });
+            isActive = true;
+            divGeneral.remove();
+            loadElements();
+            //checkSherlockStatement();
+          
         }
+
+
 
     }
 
+    //Reverse all the buttons to original status for the next interaction
+    /*let resolvedBTN = document.getElementsByClassName('_css-lajzqQ')[0];
+    resolvedBTN.addEventListener('click', ()=>{
+        alert('Se accedió al boton');
+        // activationSubmitBTN();
+        // botonProducto.className="generalBTN";
+        // botonProducto.appendChild(document.createTextNode("Producto"));
+        // botonMPago.className="generalBTN";
+        // botonMPago.appendChild(document.createTextNode("M.Pago"));
+        // botonCiudad.className="generalBTN";
+        // botonCiudad.appendChild(document.createTextNode("Ciudad"));
+        // botonBin.className="generalBTN";
+        // notasTxtArea.value = '';
+    });
+*/
     function removingFocusEvent(){
 
         let textArea = document.getElementsByClassName('_css-glQrDZ')[0];
